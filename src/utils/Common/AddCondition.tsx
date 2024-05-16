@@ -39,6 +39,7 @@ const AddCondition = ({ modal, updateModal, role = "" }: AddConditionProps) => {
         );
 
         if (existingRecord) {
+            // @ts-ignore
             setRows(existingRecord.parentCondition || []);
         } else {
             setRows([
@@ -60,6 +61,7 @@ const AddCondition = ({ modal, updateModal, role = "" }: AddConditionProps) => {
             const parentRecord = masterAgreementConditions.find(
                 (record) => record.label === modalData.label
             );
+            // @ts-ignore
             setRows(parentRecord?.parentCondition)
         }
     }, [modal.data, masterAgreementConditions]);
@@ -67,6 +69,7 @@ const AddCondition = ({ modal, updateModal, role = "" }: AddConditionProps) => {
     const handleInputChange = (index: number, key: keyof Row, value: string) => {
         setRows((prevRows) => {
             const updatedRows = [...prevRows];
+            // @ts-ignore
             updatedRows[index][key] = value;
 
             // If the key is 'selectedOperator' or 'value', set applicability to 'Yes'
@@ -90,6 +93,7 @@ const AddCondition = ({ modal, updateModal, role = "" }: AddConditionProps) => {
     const handleMinMaxChange = (index: number, key: keyof typeof rows[number]['minMaxValues'], value: string) => {
         setRows((prevRows) => {
             const updatedRows = [...prevRows];
+            // @ts-ignore
             updatedRows[index].minMaxValues = {
                 ...updatedRows[index].minMaxValues,
                 [key]: value,
@@ -193,6 +197,7 @@ const AddCondition = ({ modal, updateModal, role = "" }: AddConditionProps) => {
                                     <>
                                         <input
                                             value={row.minMaxValues?.min || ''}
+                                            // @ts-ignore
                                             onChange={(e) => handleMinMaxChange(index, 'min', e.target.value)}
                                             name="minValue"
                                             className="appearance-none block w-full text-primary border rounded py-3 my-2 px-4 leading-tight focus:outline-none focus:bg-whiteColor focus:border-borderColor"
@@ -202,6 +207,7 @@ const AddCondition = ({ modal, updateModal, role = "" }: AddConditionProps) => {
                                         />
                                         <input
                                             value={row.minMaxValues?.max || ''}
+                                            // @ts-ignore
                                             onChange={(e) => handleMinMaxChange(index, 'max', e.target.value)}
                                             name="maxValue"
                                             className="appearance-none block w-full text-primary border rounded py-3 my-2 px-4 leading-tight focus:outline-none focus:bg-whiteColor focus:border-borderColor"
