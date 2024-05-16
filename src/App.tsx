@@ -7,6 +7,8 @@ const NBFCWrapper = lazy(() => import("./Pages/Nbfc"))
 const AdminWrapper = lazy(() => import("./Pages/Admin"))
 const CommercialBankWrapper = lazy(() => import("./Pages/CommercialBank"))
 
+const UserManagement = lazy(() => import("./utils/Common/UserManagement"))
+
 const NotFound = lazy(() => import("./utils/Common/NotFound"))
 const Settings = lazy(() => import("./utils/Common/Settings"))
 
@@ -57,6 +59,7 @@ const App = () => {
               <Route path="management-fees" element={<ManagementFees />} />
               <Route path="infomanagement" element={<InfoManagement />} />
               <Route path="product-management" element={<ProductManagement />} />
+              <Route path="user-management" element={<UserManagement />} />
               <Route path="settings" element={<Settings />} />
             </Route>
           </Route>
@@ -70,6 +73,7 @@ const App = () => {
               <Route path="repayment-structure" element={<RepaymentStructureCommercialBank />} />
               <Route path="management-fees" element={<ManagementFeesCommericalBank />} />
               <Route path="repayment-from-nbfc" element={<RepaymentFromNBFCCommericalBank />} />
+              <Route path="user-management" element={<UserManagement />} />
               <Route path="settings" element={<Settings />} />
             </Route>
           </Route>

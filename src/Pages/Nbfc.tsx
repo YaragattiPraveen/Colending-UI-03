@@ -1,6 +1,6 @@
 import Header from "../utils/Common/Header";
 import MainSection from "../utils/Common/MainSection";
-import { HiArrowRightOnRectangle, HiBanknotes, HiBuildingLibrary, HiCheckBadge, HiCurrencyRupee, HiMiniInformationCircle, HiMiniUserCircle, HiMiniWallet, HiRocketLaunch, HiSquares2X2 } from "react-icons/hi2";
+import { HiArrowRightOnRectangle, HiBanknotes, HiBuildingLibrary, HiCheckBadge, HiCurrencyRupee, HiMiniInformationCircle, HiMiniUserCircle, HiMiniWallet, HiRocketLaunch, HiSquares2X2, HiUsers } from "react-icons/hi2";
 import { SideBarContentProp } from "../utils/typeScript";
 
 
@@ -51,6 +51,11 @@ const NBFCWrapper = () => {
             title: "Product Management",
             icon: <HiCheckBadge size={24} />,
             link: "product-management"
+        },
+        {
+            title: "User Management",
+            icon: <HiUsers size={24}/>,
+            link: "user-management"
         },
         {
             title: "Profile",

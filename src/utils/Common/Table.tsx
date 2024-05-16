@@ -295,6 +295,28 @@ const Table = ({ theading, tData, tname }: TableProps) => {
                                 </td>
                             </tr>)
                         }
+                        {
+                            tname === "User Management" && tData?.map((row, index) => <tr key={index} className="border-b transition duration-300 ease-in-out hover:bg-green-2">
+                                <td className="whitespace-nowrap px-6 py-3 text-left font-medium font-Roboto text-silver__color">
+                                    {row?.username}
+                                </td>
+                                <td className="whitespace-nowrap px-6 py-3 text-left font-medium font-Roboto text-silver__color">
+                                    {row?.role}
+                                </td>
+                                <td className="whitespace-nowrap px-6 py-3 text-left font-medium font-Roboto text-silver__color">
+                                    {row?.email}
+                                </td>
+                                <td className="whitespace-nowrap px-6 py-3 text-left font-medium font-Roboto text-silver__color">
+                                    {row?.contactNumber}
+                                </td>
+                                <td className="whitespace-nowrap px-6 py-3 text-left font-medium font-Roboto text-silver__color">
+                                    {row?.action}
+                                </td>
+                                <td className="whitespace-nowrap px-6 py-3 text-left font-medium font-Roboto text-silver__color">
+                                    {row?.status}
+                                </td>
+                            </tr>)
+                        }
                     </tbody>
                 </table>
             </div>

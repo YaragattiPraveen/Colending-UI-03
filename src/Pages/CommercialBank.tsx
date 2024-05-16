@@ -1,4 +1,4 @@
-import { HiArrowRightOnRectangle, HiBanknotes, HiBuildingLibrary, HiCurrencyRupee, HiMiniUserCircle, HiMiniWallet, HiRocketLaunch } from "react-icons/hi2";
+import { HiArrowRightOnRectangle, HiBanknotes, HiBuildingLibrary, HiCurrencyRupee, HiMiniUserCircle, HiMiniWallet, HiRocketLaunch, HiUsers } from "react-icons/hi2";
 import Header from "../utils/Common/Header";
 import MainSection from "../utils/Common/MainSection";
 import { SideBarContentProp } from "../utils/typeScript";
@@ -34,6 +34,11 @@ const CommercialBank = () => {
             title: "Management Fees",
             icon: <HiBuildingLibrary size={24} />,
             link: "management-fees"
+        },
+        {
+            title: "User Management",
+            icon: <HiUsers size={24}/>,
+            link: "user-management"
         },
         {
             title: "Profile",
