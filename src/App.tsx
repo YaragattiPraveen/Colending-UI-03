@@ -15,7 +15,6 @@ const Settings = lazy(() => import("./utils/Common/Settings"))
 const MasterAgreementNBFC = lazy(() => import("./components/NBFC/MasterAgreement"))
 const FormBuilder = lazy(() => import("./components/NBFC/ParameterManagement"))
 const InfoManagement = lazy(() => import("./components/NBFC/InfoManagement"))
-const ProductManagement = lazy(() => import("./components/NBFC/ProductManagement"))
 const Disbursement = lazy(() => import("./components/NBFC/Disbursement"))
 const Reimbursement = lazy(() => import("./components/NBFC/Reimbursement"))
 const RepaymentStructure = lazy(() => import("./components/NBFC/RepaymentStructure"))
@@ -58,7 +57,6 @@ const App = () => {
               <Route path="repayment-to-bank" element={<RepaymentToBank />} />
               <Route path="management-fees" element={<ManagementFees />} />
               <Route path="infomanagement" element={<InfoManagement />} />
-              <Route path="product-management" element={<ProductManagement />} />
               <Route path="user-management" element={<UserManagement />} />
               <Route path="settings" element={<Settings />} />
             </Route>

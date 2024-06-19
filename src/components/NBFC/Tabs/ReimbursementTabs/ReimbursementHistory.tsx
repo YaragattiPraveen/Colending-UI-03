@@ -5,7 +5,7 @@ const ReimbursementHistory = ({ theading, tData }: TableProps) => {
 
   return (
     <>
-      <Table tname="Repayment Table" theading={theading} tData={tData} />
+      <Table tname="Repayment Table" theading={theading} tData={tData} show={false} />
     </>
   )
 }

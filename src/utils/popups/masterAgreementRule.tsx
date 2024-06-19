@@ -2,22 +2,21 @@ import { useRef, MouseEvent, useState, useEffect } from "react";
 import { useAppContext } from "../../ContextApi/AppContext";
 import Button from "../Form-utils/Button";
 import { v4 as uuidv4 } from 'uuid'
-import { AddFieldsProps, InputFields, AddConditionProps, RowData } from "../typeScript";
+import { AddFieldsProps, InputFields, AddConditionProps } from "../typeScript";
 import { bankNames } from "../../Constants/StateAndCity";
-import { HiDocumentDuplicate, HiMiniXMark } from "react-icons/hi2";
+import { HiMiniXMark } from "react-icons/hi2";
 import { useForm } from "react-hook-form";
 import MultiSelector from "../Form-utils/MultiSelector";
 
 type ApplicabilityState = { [key: string]: { applicability: string | null } };
 
 const MasterAgreementRule: React.FC<AddFieldsProps> = ({ closeModal, updateModal, role }) => {
-    const { parameterFields, masterAgreementConditions, setMasterAgreementConditions, informationFields } = useAppContext();
+    const { parameterFields, masterAgreementConditions, setMasterAgreementConditions, informationFields, addProduct } = useAppContext();
     const [applicabilityState, setApplicabilityState] = useState<ApplicabilityState>({});
     const [mergedArray, setMergedArray] = useState<InputFields[]>([]);
     const modalRef = useRef<HTMLDivElement>(null);
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const [selectedBank, setSelectedBank] = useState<string>("");
-    const [rowsOFData, setRowsOFdata] = useState<RowData[]>([]);
+    const [selectedBank, setSelectedBank] = useState<string>("")
 
     const { register, handleSubmit, watch } = useForm<{
         masterAgreementId: string;
@@ -66,42 +65,9 @@ const MasterAgreementRule: React.FC<AddFieldsProps> = ({ closeModal, updateModal
         }
     }, [parameterFields]);
 
-    useEffect(() => {
-        const labels = [
-            "Sanctioned Limit",
-            "Bank Contribution",
-            "Blended intrest rate",
-            "Bank intrest rate",
-            "Management Fees",
-            "Penalty - Bank",
-            "Penalty - NBFC",
-            "Repayment Mode"
-        ];
-
-        const rowsOfData = labels.map(label => ({
-            label,
-            value: "",
-            applicability: ""
-        }));
-        setRowsOFdata(rowsOfData);
-    }, []);
-
     function generateRandomId() {
         return uuidv4()
     }
-
-    const handleInputChange = (index: number, fieldName: keyof RowData, value: string) => {
-        const updatedRows = [...rowsOFData];
-        updatedRows[index][fieldName] = value;
-        setRowsOFdata(updatedRows);
-    };
-
-    const handleDuplicateRow = (index: number) => {
-        const rowToDuplicate = rowsOFData[index];
-        const updatedRows = [...rowsOFData];
-        updatedRows.splice(index + 1, 0, { ...rowToDuplicate });
-        setRowsOFdata(updatedRows);
-    };
 
     const onSave = () => {
         const formData = {
@@ -109,7 +75,7 @@ const MasterAgreementRule: React.FC<AddFieldsProps> = ({ closeModal, updateModal
             selectedBank: watch("selectedBank"),
             values: watch("values")
         };
-        console.log(formData);
+        console.log(formData)
     };
 
     const handleSelectChangeAndApply = (e: React.ChangeEvent<HTMLSelectElement>, index: string) => {
@@ -219,96 +185,80 @@ const MasterAgreementRule: React.FC<AddFieldsProps> = ({ closeModal, updateModal
                             {
                                 currentPage === 1 && <form className="w-full py-3">
                                     <div className="flex gap-2 justify-between w-full items-center">
+                                        <div className="w-full">
+                                            <label
+                                                className="block uppercase tracking-wide text-primary text-sm font-bold mb-2"
+                                                htmlFor="grid-label"
+                                            >
+                                                Select Bank
+                                            </label>
+
+                                            <div className="relative flex items-center after:w-[8px] after:h-[8px] after:border-black/70 after:border-b after:border-r after:transform after:rotate-45 after:absolute after:right-3">
+                                                <select
+                                                    {...register("selectedBank")}
+                                                    className="block appearance-none w-full flex-1 border text-primary py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-borderColor"
+                                                    value={selectedBank}
+                                                    onChange={(e) => setSelectedBank(e.target.value)}
+                                                >
+                                                    <option>Select --</option>
+                                                    {bankNames?.map((name: string, ind: number) => (
+                                                        <option key={ind} value={name.toLowerCase()}>
+                                                            {name}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div className="w-full">
+                                            <label
+                                                className="block uppercase tracking-wide text-primary text-sm font-bold mb-2"
+                                                htmlFor="grid-label"
+                                            >
+                                                Sanctioned Limit
+                                            </label>
+                                            <input
+                                                className="block appearance-none w-full flex-1 border text-primary py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-borderColor"
+                                                type="text"
+                                                required={true}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center justify-end">
+                                        <Button callBack={() => updateModal?.("Add Product")} title="Add Product" />
                                     </div>
                                     <table className="min-w-full text-start bg-white">
                                         <thead className="text-xs text-start text-whiteColor bg-primary uppercase z-40">
                                             <tr>
-                                                <th className="sticky top-0 text-left bg-primary py-3 px-3 border-b">Label name</th>
-                                                <th className="sticky top-0 text-left bg-primary py-3 px-3 border-b">Value</th>
-                                                <th className="sticky top-0 text-left bg-primary py-3 px-3 border-b">Applicability</th>
-                                                <th className="sticky top-0 text-left bg-primary py-3 px-3 border-b">Duplicate</th>
+                                                <th className="sticky top-0 text-left bg-primary py-3 px-3 border-b">Product Id</th>
+                                                <th className="sticky top-0 text-left bg-primary py-3 px-3 border-b">Product Name</th>
+                                                <th className="sticky top-0 text-left bg-primary py-3 px-3 border-b">Sanctioned Limit</th>
+                                                <th className="sticky top-0 text-left bg-primary py-3 px-3 border-b">View</th>
+                                                <th className="sticky top-0 text-left bg-primary py-3 px-3 border-b">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr className="border-b capitalize text-sm hover:bg-gray-50">
-                                                <td className="px-3 py-2 font-medium text-gray-900 whitespace-nowrap">
-                                                    Select Bank
-                                                </td>
-                                                <td className="px-3 py-2 font-medium text-gray-900 whitespace-nowrap">
-                                                    <select
-                                                        {...register("selectedBank")}
-                                                        className="block appearance-none w-full flex-1 border text-primary py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-borderColor"
-                                                        value={selectedBank}
-                                                        onChange={(e) => setSelectedBank(e.target.value)}
-                                                    >
-                                                        <option>Select --</option>
-                                                        {bankNames?.map((name: string, ind: number) => (
-                                                            <option key={ind} value={name.toLowerCase()}>
-                                                                {name}
-                                                            </option>
-                                                        ))}
-                                                    </select>
-                                                </td>
-                                            </tr>
-                                            {rowsOFData.map((labelObj, index) => (
-                                                <tr key={index} className="border-b capitalize text-sm hover:bg-gray-50">
-                                                    <input
-                                                        type="hidden"
-                                                        {...register(`values[${index}].label` as `values.${number}.label`)}
-                                                        value={labelObj?.label}
-                                                    />
-                                                    <td className="px-3 py-2 font-medium text-gray-900 whitespace-nowrap">
-                                                        {labelObj?.label}
-                                                    </td>
-                                                    <td className="px-3 py-2 font-medium text-gray-900 whitespace-nowrap">
+                                            {
+                                                addProduct?.map((label, ind) => {
+                                                    return <tr key={ind} className="border-b capitalize text-sm hover:bg-gray-50">
+                                                        <td className="px-3 py-2 font-medium text-gray-900 whitespace-nowrap">
+                                                            {label["Product ID"]}
+                                                        </td>
+                                                        <td className="px-3 py-2 font-medium text-gray-900 whitespace-nowrap">
+                                                            {label["Product Name"]}
+                                                        </td>
+                                                        <td className="px-3 py-2 font-medium text-gray-900 whitespace-nowrap">
+                                                            {label["Sanctioned Limit"]}
+                                                        </td>
+                                                        <td className="px-3 py-2 font-medium text-gray-900 whitespace-nowrap">
+                                                            <Button callBack={() => updateModal?.("View Product Rule", label)} title="Edit" />
+                                                        </td>
+                                                        <td className="px-3 py-2 font-medium text-gray-900 whitespace-nowrap">
+                                                            <Button callBack={() => { }} title="Delete" />
+                                                        </td>
 
-                                                        {
-                                                            labelObj.label === "Repayment Mode" ? <select
-                                                                {...register(`values[${index}].value` as `values.${number}.value`)}
-                                                                className="block appearance-none w-full border text-primary py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-borderColor"
-                                                                value={labelObj?.value}
-                                                                onChange={(e) => handleInputChange(index, 'value', e.target.value)}
-                                                                name={`values[${index}].value`}
-                                                                disabled={role === ""}
-                                                            >
-                                                                <option value="EMI">EMI</option>
-                                                                <option value="Interest-monthly-principal-bullet">Interest: Monthly; Principal: Bullet</option>
-                                                                <option value="Bullet Repayment">Bullet Repayment</option>
-                                                            </select>
-                                                                : <input
-                                                                    {...register(`values[${index}].value` as `values.${number}.value`)}
-                                                                    value={labelObj?.value}
-                                                                    onChange={(e) => handleInputChange(index, 'value', e.target.value)}
-                                                                    name={`values[${index}].value`}
-                                                                    className="appearance-none block w-full text-primary border rounded py-3 my-2 px-4 leading-tight focus:outline-none focus:bg-whiteColor focus:border-borderColor"
-                                                                    placeholder="Value"
-                                                                    type="text"
-                                                                    disabled={role === ""}
-                                                                />
-                                                        }
-
-                                                    </td>
-                                                    <td className="px-3 py-2 font-medium text-gray-900 whitespace-nowrap">
-                                                        <select
-                                                            {...register(`values[${index}].applicability` as `values.${number}.applicability`)}
-                                                            className="block appearance-none w-full border text-primary py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-borderColor"
-                                                            value={labelObj?.applicability}
-                                                            onChange={(e) => handleInputChange(index, 'applicability', e.target.value)}
-                                                            disabled={role === ""}
-                                                        >
-                                                            <option value="Applicable-to-all">Applicable To All</option>
-                                                            <option value="Applicable-to-tl">Applicable To TL</option>
-                                                            <option value="Applicable-to-dl">Applicable To DL</option>
-                                                            <option value="Not-Applicable">Not-Applicable</option>
-                                                        </select>
-                                                    </td>
-                                                    <td className="px-3 py-2 font-medium text-gray-900 whitespace-nowrap">
-                                                        <span onClick={() => handleDuplicateRow(index)}>
-                                                            <HiDocumentDuplicate size={25} color="#283943" />
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                            ))}
+                                                    </tr>
+                                                })
+                                            }
 
                                         </tbody>
                                     </table>
@@ -395,6 +345,13 @@ const MasterAgreementRule: React.FC<AddFieldsProps> = ({ closeModal, updateModal
                             }
                         </div>
                     </div>
+                    {
+                        currentPage === 3 && <div className="flex flex-col px-4">
+                            <label className="block uppercase tracking-wide text-primary text-sm font-bold mb-2"
+                                htmlFor="grid-label">Upload file</label>
+                            <input className="bg-primary w-3/12 text-whiteColor py-1 px-2 rounded-md" type="file" />
+                        </div>
+                    }
 
                     <div className="flex items-center justify-end px-4">
                         {currentPage > 1 && <Button callBack={handlePrev} title="Previous" />}

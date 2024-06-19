@@ -9,7 +9,7 @@ interface SideBarContentProps {
 const MainSection = ({ sideBarContent }: SideBarContentProps) => {
     return (
         <section className="flex min-h-screen">
-            <div className=" max-w-sm">
+            <div className="max-w-sm">
                 <SideBar sideBarContent={sideBarContent} />
             </div>
             <main className="mt-16 flex-1 overflow-x-auto">

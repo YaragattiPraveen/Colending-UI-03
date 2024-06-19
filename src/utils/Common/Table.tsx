@@ -3,8 +3,10 @@ import { TableProps } from '../typeScript';
 import useModal from '../../hooks/useModal';
 import CommonPopUp from './CommonPopUp';
 import UploadFile from '../Form-utils/uploadFile';
+import Button from '../Form-utils/Button';
+import AddPayment from '../popups/AddPayment';
 
-const Table = ({ theading, tData, tname }: TableProps) => {
+const Table = ({ theading, tData, tname, show }: TableProps) => {
     const [selectedStatus, setSelectedStatus] = useState("")
     const { modal, closeModal, updateModal } = useModal()
 
@@ -55,7 +57,6 @@ const Table = ({ theading, tData, tname }: TableProps) => {
                         }
                         {
                             tname === "Under Processing Table" && tData?.map((row, index) => {
-                                console.log(row.actions)
                                 return <tr key={index} className="border-b transition duration-300 ease-in-out hover:bg-green-2">
                                     <td className="whitespace-nowrap px-6 text-left font-medium font-Roboto text-silver__color">
                                         {row?.loandisDate}
@@ -127,9 +128,12 @@ const Table = ({ theading, tData, tname }: TableProps) => {
                                 <td className="whitespace-nowrap px-6 py-3 text-left font-medium font-Roboto text-silver__color">
                                     {row?.managementFees}
                                 </td>
-                                <td className="whitespace-nowrap px-6 py-3 text-left font-medium font-Roboto text-silver__color">
-                                    {row?.status}
-                                </td>
+                                {
+                                    row?.status && <td className="whitespace-nowrap px-6 py-3 text-left font-medium font-Roboto text-silver__color">
+                                        {row?.status}
+                                    </td>
+                                }
+
                             </tr>)
                         }
                         {
@@ -144,12 +148,22 @@ const Table = ({ theading, tData, tname }: TableProps) => {
                                     {row?.repaymentDate}
                                 </td>
                                 <td className="whitespace-nowrap px-6 py-3 text-left font-medium font-Roboto text-silver__color">
+                                    {row?.utrNO}
+                                </td>
+                                <td className="whitespace-nowrap px-6 py-3 text-left font-medium font-Roboto text-silver__color">
                                     {row?.repaymentAmount}
                                 </td>
+                                {
+                                    row?.viewApplication && <td className="whitespace-nowrap px-6 text-left font-medium font-Roboto text-silver__color">
+                                        {row?.viewApplication}
+                                    </td>
+                                }
+
                             </tr>)
                         }
                         {
                             tname === "Granted Table" && tData?.map((row, index) => <tr key={index} className="border-b transition duration-300 ease-in-out hover:bg-green-2">
+
                                 <td className="whitespace-nowrap px-6 text-left font-medium font-Roboto text-silver__color">
                                     {row?.loandisDate}
                                 </td>
@@ -178,6 +192,10 @@ const Table = ({ theading, tData, tname }: TableProps) => {
                         }
                         {
                             tname === "Repayment Structure" && tData?.map((row, index) => <tr key={index} className="border-b transition duration-300 ease-in-out hover:bg-green-2">
+                                {show && <td className="whitespace-nowrap px-6 text-left font-medium font-Roboto text-silver__color">
+                                    <input type='checkbox' />
+                                </td>}
+
                                 <td className="whitespace-nowrap px-6 text-left font-medium font-Roboto text-silver__color">
                                     {row?.loandisDate}
                                 </td>
@@ -190,9 +208,11 @@ const Table = ({ theading, tData, tname }: TableProps) => {
                                 <td className="whitespace-nowrap px-6 text-left font-medium font-Roboto text-silver__color">
                                     {row?.bankName}
                                 </td>
-                                <td className="whitespace-nowrap px-6 text-left font-medium font-Roboto text-silver__color">
-                                    {row?.repaymentDate}
-                                </td>
+                                {
+                                    row?.repaymentDate && <td className="whitespace-nowrap px-6 text-left font-medium font-Roboto text-silver__color">
+                                        {row?.repaymentDate}
+                                    </td>
+                                }
                                 <td className="whitespace-nowrap px-6 text-left font-medium font-Roboto text-silver__color">
                                     {row?.loanApprovalDate}
                                 </td>
@@ -202,12 +222,17 @@ const Table = ({ theading, tData, tname }: TableProps) => {
                                 <td className="whitespace-nowrap px-6 text-left font-medium font-Roboto text-silver__color">
                                     {row?.viewApplication}
                                 </td>
-                                <td className="whitespace-nowrap px-6 text-left font-medium font-Roboto text-silver__color">
-                                    {row?.viewRepaymentStructure}
-                                </td>
-                                <td className="whitespace-nowrap px-6 text-left font-medium font-Roboto text-silver__color">
-                                    {row?.paymentStatus}
-                                </td>
+                                {
+                                    row?.viewRepaymentStructure && <td className="whitespace-nowrap px-6 text-left font-medium font-Roboto text-silver__color">
+                                        {row?.viewRepaymentStructure}
+                                    </td>
+                                }
+                                {
+                                    row?.paymentStatus && <td className="whitespace-nowrap px-6 text-left font-medium font-Roboto text-silver__color">
+                                        {row?.paymentStatus}
+                                    </td>
+                                }
+
                             </tr>)
                         }
                         {(tname === "Rejected Master Agreement Table" || tname === "Pending Master Agreement Table") && tData?.map((row, index) => (
@@ -319,9 +344,18 @@ const Table = ({ theading, tData, tname }: TableProps) => {
                         }
                     </tbody>
                 </table>
+
             </div>
             {
+                show && <div className='flex items-center justify-end'>
+                    <Button callBack={() => updateModal("Add Payment")} title='Add Payment' />
+                </div>
+            }
+            {
                 modal.state === "Upload file" && <CommonPopUp title='Upload File and Approve' component={<UploadFile />} closeModal={closeModal} />
+            }
+            {
+                modal.state === "Add Payment" && <CommonPopUp title='Add Payment' component={<AddPayment />} closeModal={closeModal} />
             }
         </>
 

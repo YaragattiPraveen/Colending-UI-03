@@ -2,33 +2,34 @@ import { ChangeEvent, useState } from "react"
 import Table from "../../utils/Common/Table"
 import { managementButtonTitle } from "../../Constants/ButtonTitles"
 import * as XLSX from 'xlsx';
+import useModal from "../../hooks/useModal";
+import Button from "../../utils/Form-utils/Button";
+import CommonPopUp from "../../utils/Common/CommonPopUp";
+import AddPayment from "../../utils/popups/AddPayment";
 
 const ManagementFees = () => {
     const [currentTab, setCurrentTab] = useState<number>(0)
+    const { modal, updateModal, closeModal } = useModal()
     const [pendingTableData, setPendingTableData] = useState([
         {
             bankId: "da5d45d4f5ad5f45",
             bankName: "State Bank Of India",
             outStandingAmount: 500000,
-            managementFees: 63000,
-            status: "Pending"
+            managementFees: 63000
         },
         {
             bankId: "da5d45d4f5ad5f45",
             bankName: "State Bank Of India",
             outStandingAmount: 500000,
-            managementFees: 63000,
-            status: "Paid"
+            managementFees: 63000
         },
         {
             bankId: "da5d45d4f5ad5f45",
             bankName: "State Bank Of India",
             outStandingAmount: 500000,
-            managementFees: 63000,
-            status: "Pending"
+            managementFees: 63000
         },
     ])
-    // const [tableHeadings, setTableHeadings] = useState<string[]>([]);
     const pendingAmountTableData = {
         tname: "Repayment Pending Amount",
         theading: [
@@ -36,7 +37,6 @@ const ManagementFees = () => {
             "Bank Name",
             "Outstanding Amount",
             "Management Fees",
-            "Status"
         ],
         tData: pendingTableData
     }
@@ -81,22 +81,25 @@ const ManagementFees = () => {
         tData: [{
             bankId: "da5d45d4f5ad5f45",
             bankName: "State Bank Of India",
+            utrNO: "16532",
             repaymentDate: new Date().toISOString().substring(0, 10),
-            repaymentAmount: 36000
+            repaymentAmount: 36000,
         },
         {
             bankId: "da5d45d4f5ad5f45",
             bankName: "State Bank Of India",
+            utrNO: "16532",
             repaymentDate: new Date().toISOString().substring(0, 10),
-            repaymentAmount: 36000
+            repaymentAmount: 36000,
         },
         {
             bankId: "da5d45d4f5ad5f45",
+            utrNO: "16532",
             bankName: "State Bank Of India",
             repaymentDate: new Date().toISOString().substring(0, 10),
-            repaymentAmount: 36000
+            repaymentAmount: 36000,
         }],
-        theading: ["Bank ID", "Bank Name", "Repayment Date", "Repayment Amount"]
+        theading: ["Bank ID", "Bank Name", "Payment Date", "UTR No", "Management Fees"]
     }
     const handleTab = (ind: number) => {
         setCurrentTab(ind)
@@ -106,6 +109,9 @@ const ManagementFees = () => {
         <main className="flex-col px-4 overflow-y-auto">
             <h3 className="text-primary font-semibold lg:text-2xl pb-3">Management Fees</h3>
             <input className="bg-primary text-whiteColor py-1 px-2 rounded-md" type="file" onChange={handleFileUpload} />
+            <div className='flex items-center justify-end'>
+                <Button callBack={() => updateModal("Add Payment")} title='Add Payment' />
+            </div>
             <div className="px-4 flex gap-3 flex-wrap items-center justify-end py-3">
                 {
                     managementButtonTitle?.map((title: string, ind: number) => {
@@ -117,13 +123,16 @@ const ManagementFees = () => {
             </div>
             <div className="px-4">
                 {
-                    currentTab === 0 && <Table tname={pendingAmountTableData.tname} theading={pendingAmountTableData.theading} tData={pendingAmountTableData.tData} />
+                    currentTab === 0 && <Table tname={pendingAmountTableData.tname} theading={pendingAmountTableData.theading} tData={pendingAmountTableData.tData} show={false} />
                 }
                 {
-                    currentTab === 1 && <Table tname={rePaymentAmountTableData.tname} theading={rePaymentAmountTableData?.theading} tData={rePaymentAmountTableData?.tData} />
+                    currentTab === 1 && <Table tname={rePaymentAmountTableData.tname} theading={rePaymentAmountTableData?.theading} tData={rePaymentAmountTableData?.tData} show={false} />
                 }
 
             </div>
+            {
+                modal.state === "Add Payment" && <CommonPopUp title='Management Fees' component={<AddPayment />} closeModal={closeModal} />
+            }
         </main>
     )
 }

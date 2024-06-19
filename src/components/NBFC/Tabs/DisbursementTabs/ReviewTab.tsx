@@ -90,20 +90,20 @@ const ReviewTab = () => {
   ]
   return (
     <>
-      <Table tname="Review Table" theading={["Loan Disbursement Date", "Loan ID", "Name of the Borrower", "Loan Amount", "View Loan Application", "Compliance Check"]} tData={tableData} />
+      <Table tname="Review Table" theading={["Loan Disbursement Date", "Loan ID", "Name of the Borrower", "Loan Amount", "View Loan Application", "Compliance Check"]} tData={tableData} show={false} />
       {
         modal?.state === "View Application" && <CommonPopUp title="View Loan Application" closeModal={closeModal} component={<MultistepForm />} />
       }
       {
         modal?.state === "View Compliance" && (
           <>
-            <CommonPopUp title="Compliance Check" component={<Table theading={["Select Bank", "Bank ID", "Bank Name", "Compliance Rate"]} tData={tableData1} tname="Compliance Table" />} closeModal={closeModal} />
+            <CommonPopUp title="Compliance Check" component={<Table theading={["Select Bank", "Bank ID", "Bank Name", "Compliance Rate"]} tData={tableData1} tname="Compliance Table" show={false} />} closeModal={closeModal} />
           </>
         )
       }
       {
         modal?.state === "View Compliance Rate" && showComplianceRateModal && (
-          <CommonPopUp title="Compliance Rate" component={<Table theading={["LABEL NAME", "PARAMETER TYPE ", "APPLICABILITY", "OPERATORS", "RULE", "Compliance"]} tData={tableData2} tname="Compliance Rate Table" />} closeModal={() => { updateModal("View Compliance"); setShowComplianceRateModal(false); }} />
+          <CommonPopUp title="Compliance Rate" component={<Table theading={["LABEL NAME", "PARAMETER TYPE ", "APPLICABILITY", "OPERATORS", "RULE", "Compliance"]} tData={tableData2} tname="Compliance Rate Table" show={false} />} closeModal={() => { updateModal("View Compliance"); setShowComplianceRateModal(false); }} />
         )
       }
     </>

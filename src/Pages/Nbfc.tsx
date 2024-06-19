@@ -1,6 +1,6 @@
 import Header from "../utils/Common/Header";
 import MainSection from "../utils/Common/MainSection";
-import { HiArrowRightOnRectangle, HiBanknotes, HiBuildingLibrary, HiCheckBadge, HiCurrencyRupee, HiMiniInformationCircle, HiMiniUserCircle, HiMiniWallet, HiRocketLaunch, HiSquares2X2, HiUsers } from "react-icons/hi2";
+import { HiArrowRightOnRectangle, HiBanknotes, HiBuildingLibrary, HiCurrencyRupee, HiMiniInformationCircle, HiMiniUserCircle, HiMiniWallet, HiRocketLaunch, HiSquares2X2, HiUsers } from "react-icons/hi2";
 import { SideBarContentProp } from "../utils/typeScript";
 
 
@@ -31,11 +31,6 @@ const NBFCWrapper = () => {
             icon: <HiBanknotes size={24} />,
             link: 'reimbursement'
         },
-        // {
-        //     title: "Repayment",
-        //     icon: <HiCreditCard size={24} />,
-        //     link: 'repayment-structure'
-        // },
         {
             title: "Repayment to Bank",
             icon: <HiMiniWallet size={24} />,
@@ -48,13 +43,8 @@ const NBFCWrapper = () => {
         }
         ,
         {
-            title: "Product Management",
-            icon: <HiCheckBadge size={24} />,
-            link: "product-management"
-        },
-        {
             title: "User Management",
-            icon: <HiUsers size={24}/>,
+            icon: <HiUsers size={24} />,
             link: "user-management"
         },
         {

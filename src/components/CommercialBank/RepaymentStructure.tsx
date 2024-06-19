@@ -50,7 +50,7 @@ const RepaymentStructure = () => {
     return (
         <main className="flex-col px-4 overflow-y-auto">
             <h3 className="text-primary font-semibold lg:text-2xl pb-3">Repayment</h3>
-            <Table tname="Repayment Structure" theading={repaymentStructureTableData.theading} tData={repaymentStructureTableData.tData} />
+            <Table tname="Repayment Structure" theading={repaymentStructureTableData.theading} tData={repaymentStructureTableData.tData} show={false} />
             {
                 modal?.state === "View Application" && <CommonPopUp title="View Loan Application" closeModal={closeModal} component={<MultistepForm />} />
             }

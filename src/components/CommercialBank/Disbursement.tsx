@@ -200,13 +200,13 @@ const Disbursement = () => {
             </div>
             <div className="px-4">
                 {
-                    currentTab === 0 && <GrantedTab theading={repaymentStructureTableData.theading} tData={repaymentStructureTableData.tData} />
+                    currentTab === 0 && <GrantedTab theading={repaymentStructureTableData.theading} tData={repaymentStructureTableData.tData} show={false} />
                 }
                 {
-                    currentTab === 1 && <UnderProcessingTab theading={rejectedTableData.theading} tData={rejectedTableData.tData} />
+                    currentTab === 1 && <UnderProcessingTab theading={rejectedTableData.theading} tData={rejectedTableData.tData} show={false} />
                 }
                 {
-                    currentTab === 2 && <UnderProcessingTab theading={underProcessingTableData.theading} tData={underProcessingTableData.tData} />
+                    currentTab === 2 && <UnderProcessingTab theading={underProcessingTableData.theading} tData={underProcessingTableData.tData} show={false} />
                 }
             </div>
             {
@@ -214,7 +214,7 @@ const Disbursement = () => {
             }
             {
                 modal?.state === "View Compliance Rate" && (
-                    <CommonPopUp title="Compliance Rate" component={<Table theading={["LABEL NAME", "PARAMETER TYPE ", "APPLICABILITY", "OPERATORS", "RULE", "Compliance"]} tData={underProcessingTableData?.tableData2} tname="Compliance Rate Table" />} closeModal={() => { updateModal("View Compliance") }} />
+                    <CommonPopUp title="Compliance Rate" component={<Table theading={["LABEL NAME", "PARAMETER TYPE ", "APPLICABILITY", "OPERATORS", "RULE", "Compliance"]} tData={underProcessingTableData?.tableData2} tname="Compliance Rate Table" show={false} />} closeModal={() => { updateModal("View Compliance") }} />
                 )
             }
             {

@@ -103,38 +103,41 @@ const FormComponent: React.FC<FormComponentProps> = ({ data, modelClose, title }
                         >
                             Select Type
                         </label>
-                        <select
-                            {...register('type', { required: true })}
-                            value={watch('type')}
-                            onChange={(e) => setValue('type', e.target.value)}
-                            required={true}
-                            className={`block appearance-none w-full  border text-primary py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-borderColor ${errors?.type ? 'border-red-500' : 'focus:border-borderColor'}`}
-                            id="grid-type"
-                        >
-                            <option value="button">Button</option>
-                            <option value="checkbox">Checkbox</option>
-                            <option value="color">Color</option>
-                            <option value="date">Date</option>
-                            <option value="datetime-local">Datetime Local</option>
-                            <option value="email">Email</option>
-                            <option value="file">File</option>
-                            <option value="hidden">Hidden</option>
-                            <option value="image">Image</option>
-                            <option value="month">Month</option>
-                            <option value="number">Number</option>
-                            <option value="password">Password</option>
-                            <option value="radio">Radio</option>
-                            <option value="range">Range</option>
-                            <option value="reset">Reset</option>
-                            <option value="search">Search</option>
-                            <option value="submit">Submit</option>
-                            <option value="tel">Telephone</option>
-                            <option value="text">Text</option>
-                            <option value="time">Time</option>
-                            <option value="url">URL</option>
-                            <option value="week">Week</option>
-                            <option value="select">Select</option>
-                        </select>
+                        <div className="relative flex items-center after:w-[8px] after:h-[8px] after:border-black/70 after:border-b after:border-r after:transform after:rotate-45 after:absolute after:right-3">
+                            <select
+                                {...register('type', { required: true })}
+                                value={watch('type')}
+                                onChange={(e) => setValue('type', e.target.value)}
+                                required={true}
+                                className={`block appearance-none w-full  border text-primary py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-borderColor ${errors?.type ? 'border-red-500' : 'focus:border-borderColor'}`}
+                                id="grid-type"
+                            >
+                                <option value="button">Button</option>
+                                <option value="checkbox">Checkbox</option>
+                                <option value="color">Color</option>
+                                <option value="date">Date</option>
+                                <option value="datetime-local">Datetime Local</option>
+                                <option value="email">Email</option>
+                                <option value="file">File</option>
+                                <option value="hidden">Hidden</option>
+                                <option value="image">Image</option>
+                                <option value="month">Month</option>
+                                <option value="number">Number</option>
+                                <option value="password">Password</option>
+                                <option value="radio">Radio</option>
+                                <option value="range">Range</option>
+                                <option value="reset">Reset</option>
+                                <option value="search">Search</option>
+                                <option value="submit">Submit</option>
+                                <option value="tel">Telephone</option>
+                                <option value="text">Text</option>
+                                <option value="time">Time</option>
+                                <option value="url">URL</option>
+                                <option value="week">Week</option>
+                                <option value="select">Select</option>
+                            </select>
+                        </div>
+
                     </div>
                 </div>
             }
@@ -148,18 +151,21 @@ const FormComponent: React.FC<FormComponentProps> = ({ data, modelClose, title }
                         >
                             Select Number Type
                         </label>
-                        <select
-                            {...register('numberType', { required: true })}
-                            value={watch('numberType')}
-                            onChange={(e) => setValue('numberType', e.target.value)}
-                            required={true}
-                            className={`block appearance-none w-full  border text-primary py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-borderColor ${errors?.numberType ? 'border-red-500' : 'focus:border-borderColor'}`}
-                            id="grid-numberType"
-                        >
-                            <option value="integer">Integer</option>
-                            <option value="dcimal">Decimal</option>
-                            <option value="percentage">Percentage</option>
-                        </select>
+                        <div className="relative flex items-center after:w-[8px] after:h-[8px] after:border-black/70 after:border-b after:border-r after:transform after:rotate-45 after:absolute after:right-3">
+
+                            <select
+                                {...register('numberType', { required: true })}
+                                value={watch('numberType')}
+                                onChange={(e) => setValue('numberType', e.target.value)}
+                                required={true}
+                                className={`block appearance-none w-full  border text-primary py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-borderColor ${errors?.numberType ? 'border-red-500' : 'focus:border-borderColor'}`}
+                                id="grid-numberType"
+                            >
+                                <option value="integer">Integer</option>
+                                <option value="dcimal">Decimal</option>
+                                <option value="percentage">Percentage</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             )}

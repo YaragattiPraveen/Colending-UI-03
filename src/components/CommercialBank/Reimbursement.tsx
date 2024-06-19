@@ -10,8 +10,13 @@ import MultistepForm from "../../utils/Common/MultistepForm"
 
 const Reimbursement = () => {
     const [currentTab, setCurrentTab] = useState<number>(0)
-    const [showComplianceRateModal, setShowComplianceRateModal] = useState(false);
     const { modal, updateModal, closeModal } = useModal()
+    let show
+    if (currentTab === 0) {
+        show = true
+    } else {
+        show = false
+    }
 
     const handleTab = (ind: number) => {
         setCurrentTab(ind)
@@ -37,7 +42,7 @@ const Reimbursement = () => {
     }
 
     const approvedTableData = {
-        theading: ["Loan Disbursement Date", "Loan ID", "Name of the Borrower", "NBFC Name", "Loan Approval Date", "Loan Amount", "View Loan Application", "Payment Status"],
+        theading: currentTab === 0 ? ["Select Loan Application", "Loan Disbursement Date", "Loan ID", "Name of the Borrower", "NBFC Name", "Loan Approval Date", "Loan Amount", "View Loan Application"] : ["Loan Disbursement Date", "Loan ID", "Name of the Borrower", "NBFC Name", "Loan Approval Date", "Loan Amount", "View Loan Application"],
         tData: [
             {
                 loandisDate: new Date().toISOString().substring(0, 10),
@@ -45,9 +50,8 @@ const Reimbursement = () => {
                 nameOfBorrower: "Raj Nanda",
                 bankName: "State Bank Of India",
                 loanAmount: 30000,
-                viewApplication:<Button callBack={() => { updateModal("View Application"); setShowComplianceRateModal(!showComplianceRateModal) }} title="View" />,
+                viewApplication: <Button callBack={() => { updateModal("View Application") }} title="View" />,
                 loanApprovalDate: new Date().toISOString().substring(0, 10),
-                paymentStatus: "Paid"
             },
             {
                 loandisDate: new Date().toISOString().substring(0, 10),
@@ -55,9 +59,8 @@ const Reimbursement = () => {
                 nameOfBorrower: "Emily Smith",
                 loanAmount: 30000,
                 bankName: "State Bank Of India",
-                viewApplication:<Button callBack={() => { updateModal("View Application"); setShowComplianceRateModal(!showComplianceRateModal) }} title="View" />,
+                viewApplication: <Button callBack={() => { updateModal("View Application") }} title="View" />,
                 loanApprovalDate: new Date().toISOString().substring(0, 10),
-                paymentStatus: "Pending"
             },
             {
                 loandisDate: new Date().toISOString().substring(0, 10),
@@ -65,8 +68,7 @@ const Reimbursement = () => {
                 nameOfBorrower: "John Doe",
                 loanAmount: 30000,
                 bankName: "State Bank Of India",
-                viewApplication:<Button callBack={() => { updateModal("View Application"); setShowComplianceRateModal(!showComplianceRateModal) }} title="View" />,             loanApprovalDate: new Date().toISOString().substring(0, 10),
-                paymentStatus: "Paid"
+                viewApplication: <Button callBack={() => { updateModal("View Application") }} title="View" />, loanApprovalDate: new Date().toISOString().substring(0, 10),
             }
         ]
     }
@@ -75,22 +77,28 @@ const Reimbursement = () => {
         tData: [{
             bankId: "da5d45d4f5ad5f45",
             bankName: "State Bank Of India",
+            utrNO: "16532",
             repaymentDate: new Date().toISOString().substring(0, 10),
-            repaymentAmount: 36000
+            repaymentAmount: 36000,
+            viewApplication: <Button callBack={() => { updateModal("Reimbursement History") }} title="View" />
         },
         {
             bankId: "da5d45d4f5ad5f45",
             bankName: "State Bank Of India",
+            utrNO: "16532",
             repaymentDate: new Date().toISOString().substring(0, 10),
-            repaymentAmount: 36000
+            repaymentAmount: 36000,
+            viewApplication: <Button callBack={() => { updateModal("Reimbursement History") }} title="View" />
         },
         {
             bankId: "da5d45d4f5ad5f45",
+            utrNO: "16532",
             bankName: "State Bank Of India",
             repaymentDate: new Date().toISOString().substring(0, 10),
-            repaymentAmount: 36000
+            repaymentAmount: 36000,
+            viewApplication: <Button callBack={() => { updateModal("Reimbursement History") }} title="View" />
         }],
-        theading: ["NBFC ID", "NBFC Name", "Repayment Date", "Repayment Amount"]
+        theading: ["NBFC ID", "NBFC Name", "Repayment Date", "UTR No", "Repayment Amount", "View Loan Applications"]
     }
 
     return (
@@ -107,18 +115,18 @@ const Reimbursement = () => {
             </div>
             <div className="px-4">
                 {
-                    currentTab === 0 && <PendingAmount tData={pendingAmountTableData?.tData} theading={pendingAmountTableData?.theading} />
+                    currentTab === 0 && <PendingAmount tData={pendingAmountTableData?.tData} theading={pendingAmountTableData?.theading} show={false} />
                 }
                 {
-                    currentTab === 1 && <ReimbursementHistory tData={rePaymentAmountTableData?.tData} theading={rePaymentAmountTableData?.theading} />
+                    currentTab === 1 && <ReimbursementHistory tData={rePaymentAmountTableData?.tData} theading={rePaymentAmountTableData?.theading} show={false} />
                 }
 
             </div>
             {
-                modal.state === "Reimbursement History" && <CommonPopUp title="Reimbursement History" closeModal={closeModal} component={<GrantedTab theading={approvedTableData.theading} tData={approvedTableData.tData} />} />
+                modal.state === "Reimbursement History" && <CommonPopUp title="Reimbursement History" closeModal={closeModal} component={<GrantedTab theading={approvedTableData.theading} tData={approvedTableData.tData} show={show} />} />
             }
             {
-                modal?.state === "View Application" && showComplianceRateModal && <CommonPopUp title="View Loan Application" component={<MultistepForm />} closeModal={() => { updateModal("Reimbursement History"); setShowComplianceRateModal(!showComplianceRateModal); }} />
+                modal?.state === "View Application" && <CommonPopUp title="View Loan Application" component={<MultistepForm />} closeModal={() => { updateModal("Reimbursement History") }} />
             }
         </main>
     )

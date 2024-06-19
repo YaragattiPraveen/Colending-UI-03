@@ -72,6 +72,7 @@ export interface TableProps {
     theading: string[];
     tData: TData[];
     tname?: string;
+    show: boolean
 }
 
 export interface ContextProviderProps {
@@ -81,6 +82,8 @@ export interface ContextProviderProps {
     setInformationFields: Dispatch<SetStateAction<InputFields[]>>;
     masterAgreementConditions: AddConditionProps[];
     setMasterAgreementConditions: Dispatch<SetStateAction<AddConditionProps[]>>;
+    addProduct: addProduct[]
+    setAddProduct: Dispatch<SetStateAction<addProduct[]>>
 }
 
 export interface UserDetailsProps {
@@ -158,4 +161,26 @@ export interface ModalProp {
 export interface inputFieldsProp {
     inputField: InputFields,
     disable: boolean
-  }
+}
+
+
+export type addProduct = {
+    "Product ID": string;
+    "Product Name": string;
+    "Reference Product ID": string;
+    "Sanctioned Limit": number;
+    "Bank Contribution": number;
+    "NBFC Contribution": number;
+    "Maximum Blended Rate": number | string;
+    "Bank Interest Rate": number | string;
+    "Management Fees": number;
+    "Cutoff Date": string;
+    "Pay In Date": string;
+    "Pay Out Date": string;
+    "Interest Debit Date Bank": string;
+    "Interest Debit Date NBFC": string;
+    "Mode of Repayment": string;
+    "Penalty Rate Bank": number | string;
+    "Penalty Rate NBFC": number | string;
+};
+

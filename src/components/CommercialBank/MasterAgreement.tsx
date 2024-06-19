@@ -139,9 +139,9 @@ const MasterAgreement = () => {
             </div>
 
             <div className="px-4">
-                {currentTab === 0 && <Approved theading={approvedTableData.theading} tData={approvedTableData.tData} />}
-                {currentTab === 1 && <Rejected theading={rejectedTableData.theading} tData={rejectedTableData.tData} />}
-                {currentTab === 2 && <Pending theading={pendingTableData.theading} tData={pendingTableData.tData} />}
+                {currentTab === 0 && <Approved theading={approvedTableData.theading} tData={approvedTableData.tData} show={false} />}
+                {currentTab === 1 && <Rejected theading={rejectedTableData.theading} tData={rejectedTableData.tData} show={false} />}
+                {currentTab === 2 && <Pending theading={pendingTableData.theading} tData={pendingTableData.tData} show={false} />}
             </div>
             {modal.state === "showCreateMasterAgreement" && <MasterAgreementRule updateModal={updateModal} closeModal={closeModal} />}
             {

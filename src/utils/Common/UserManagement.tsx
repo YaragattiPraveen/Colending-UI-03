@@ -32,7 +32,7 @@ const UserManagement = () => {
             <main className="flex-col px-4 overflow-y-auto">
                 <h3 className="text-primary font-semibold lg:text-2xl pb-3">User Management</h3>
                 <Button callBack={() => updateModal("showUserModal")} title="Add User" />
-                <Table theading={tData.tHeading} tData={tData.data} tname="User Management" />
+                <Table theading={tData.tHeading} tData={tData.data} tname="User Management" show={false} />
             </main>
             {
                 modal.state === "showUserModal" && <CommonPopUp title="User Management" component={<UserManagementPopUp />} closeModal={closeModal} />
